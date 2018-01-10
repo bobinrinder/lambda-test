@@ -37,3 +37,17 @@ Resources:
           Properties:
             Path: /test
             Method: get
+  PostTest:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: /post/index.post
+      Runtime: nodejs4.3
+      Role:
+        Fn::ImportValue:
+          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /test
+            Method: post
